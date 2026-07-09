@@ -1,5 +1,6 @@
 import streamlit as st
 import random
+import base64
 
 # ----------------------------------
 # BOOKSY DATABASE
@@ -276,6 +277,105 @@ book_descriptions = {
     "Good to Great by Jim Collins":
     "🏆 Discover what makes companies truly exceptional."
 }
+
+book_explanations = {
+
+    "The House in the Cerulean Sea by TJ Klune":
+    "A heartwarming and magical story filled with found family, kindness, and comfort.",
+
+    "Legends & Lattes by Travis Baldree":
+    "Perfect for cozy readers who enjoy warm friendships, coffee shops, and low-stakes fantasy adventures.",
+
+    "A Psalm for the Wild-Built by Becky Chambers":
+    "A thoughtful and peaceful journey about purpose, self-discovery, and finding happiness in small moments.",
+
+    "Anne of Green Gables by L.M. Montgomery":
+    "A charming classic full of imagination, optimism, and wholesome comfort.",
+
+    "The Love Hypothesis by Ali Hazelwood":
+    "A fun and heartwarming romance with lovable characters and plenty of chemistry.",
+
+    "Better Than the Movies by Lynn Painter":
+    "A lighthearted rom-com that captures the excitement and awkwardness of first love.",
+
+    "Book Lovers by Emily Henry":
+    "A witty and emotional romance perfect for readers who love books and clever banter.",
+
+    "The Spanish Love Deception by Elena Armas":
+    "A slow-burn romance packed with tension, humor, and unforgettable moments.",
+
+    "The Silent Patient by Alex Michaelides":
+    "A gripping psychological thriller filled with twists that keep readers guessing.",
+
+    "Gone Girl by Gillian Flynn":
+    "A dark and suspenseful thriller known for its shocking surprises and unreliable characters.",
+
+    "Behind Closed Doors by B.A. Paris":
+    "A tense and addictive psychological thriller that keeps the suspense high.",
+
+    "The Girl on the Train by Paula Hawkins":
+    "A mystery filled with secrets, twists, and unreliable perspectives.",
+
+    "Harry Potter and the Sorcerer's Stone by J.K. Rowling":
+    "A magical adventure filled with friendship, wonder, and unforgettable discoveries.",
+
+    "The Hobbit by J.R.R. Tolkien":
+    "A timeless fantasy quest packed with adventure, courage, and imagination.",
+
+    "Fourth Wing by Rebecca Yarros":
+    "An action-packed fantasy featuring dragons, danger, and intense relationships.",
+
+    "Six of Crows by Leigh Bardugo":
+    "A thrilling fantasy heist with clever characters and high-stakes adventures.",
+
+    "Project Hail Mary by Andy Weir":
+    "A clever sci-fi adventure combining science, humor, and suspense.",
+
+    "Dune by Frank Herbert":
+    "An epic science fiction masterpiece exploring power, destiny, and survival.",
+
+    "The Martian by Andy Weir":
+    "A smart and entertaining survival story driven by science and determination.",
+
+    "Ender's Game by Orson Scott Card":
+    "A thought-provoking sci-fi novel about strategy, leadership, and sacrifice.",
+
+    "Atomic Habits by James Clear":
+    "Perfect for readers looking to build better habits through practical and proven techniques.",
+
+    "The Alchemist by Paulo Coelho":
+    "An inspiring story about dreams, purpose, and following your heart.",
+
+    "Shoe Dog by Phil Knight":
+    "A fascinating entrepreneurial journey behind the creation of Nike.",
+
+    "Ikigai by Héctor García":
+    "A calming exploration of finding meaning and joy in everyday life.",
+
+    "Think Like a Monk by Jay Shetty":
+    "Offers practical wisdom for mindfulness, happiness, and personal growth.",
+
+    "The Mountain Is You by Brianna Wiest":
+    "An insightful guide to overcoming self-sabotage and achieving growth.",
+
+    "Deep Work by Cal Newport":
+    "Perfect for improving focus, productivity, and meaningful work habits.",
+
+    "The Psychology of Money by Morgan Housel":
+    "Explains financial success through behavior, decision-making, and mindset.",
+
+    "Zero to One by Peter Thiel":
+    "A bold look at innovation, startups, and building the future.",
+
+    "The Lean Startup by Eric Ries":
+    "Teaches practical methods for building successful businesses efficiently.",
+
+    "Rich Dad Poor Dad by Robert Kiyosaki":
+    "Introduces key financial concepts and wealth-building principles.",
+
+    "Good to Great by Jim Collins":
+    "Explores what separates exceptional companies from average ones."
+}
 # ----------------------------------
 # QUOTES
 # ----------------------------------
@@ -297,6 +397,211 @@ st.set_page_config(
     page_icon="📚",
     layout="centered"
 )
+def get_base64(file_path):
+    with open(file_path, "rb") as f:
+        return base64.b64encode(f.read()).decode()
+bg_image = get_base64("assets/background.jpg")
+
+st.markdown(f"""
+<style>
+
+[data-testid="stAppViewContainer"] {{
+    background-image: url("data:image/jpg;base64,{bg_image}");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}}
+
+[data-testid="stAppViewContainer"]::before {{
+    content: "";
+    position: fixed;
+    inset: 0;
+    backdrop-filter: blur(8px);
+    background: rgba(0,0,0,0.35);
+    z-index: -1;
+}}
+
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<style>
+
+/* Sidebar */
+
+[data-testid="stSidebar"] {{
+    background: rgba(20, 15, 10, 0.92);
+    backdrop-filter: blur(12px);
+}}
+ /* Sidebar Shadow */
+
+[data-testid="stSidebar"] {
+    box-shadow: 5px 0 30px rgba(0,0,0,0.3);
+    border-right: 1px solid rgba(255,255,255,0.1);
+}           
+section.main > div {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    border: 1px solid rgba(255,255,255,0.15);
+
+    box-shadow:
+        0 8px 32px rgba(0,0,0,0.25),
+        inset 0 1px rgba(255,255,255,0.12);
+
+    border-radius: 25px;
+    padding: 2rem;
+}
+            div[data-testid="stVerticalBlock"] > div:has(img) {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(12px);
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    border-radius: 20px;
+
+    padding: 10px;
+
+    margin-bottom: 20px;
+
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+}
+            div[data-testid="stVerticalBlock"] > div:has(img):hover {
+    transform: translateY(-4px);
+
+    box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+
+    transition: all 0.3s ease;
+}
+h1 {
+    color: #e8c86a !important;
+    text-shadow:
+        0 0 6px rgba(255,215,120,0.25),
+        0 0 12px rgba(255,215,120,0.15);
+}
+[data-testid="stAppViewContainer"]::after {
+    content: "";
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background-image:
+        radial-gradient(circle at 15% 20%, rgba(255,215,120,0.08) 0%, transparent 8%),
+        radial-gradient(circle at 80% 30%, rgba(255,180,220,0.08) 0%, transparent 10%),
+        radial-gradient(circle at 60% 80%, rgba(255,230,180,0.06) 0%, transparent 8%);
+
+    pointer-events: none;
+
+        z-index: -1;
+}
+.stTextInput input {
+    background: rgba(255,255,255,0.08) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 15px;
+}
+.stTextInput input:focus {
+    border: 1px solid #ffd76b !important;
+    box-shadow: 0 0 15px rgba(255,215,120,0.4);
+}
+            .stTextInput input {
+    background: rgba(255,255,255,0.08) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 15px;
+}
+
+/* Mood Pills */
+
+div[role="radiogroup"] {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+div[role="radiogroup"] label {
+    background: rgba(255,255,255,0.08) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 999px !important;
+
+    padding: 10px 18px !important;
+
+    transition: all 0.3s ease;
+}
+
+div[role="radiogroup"] label:hover {
+    transform: translateY(-3px);
+    background: rgba(255,215,120,0.15) !important;
+    box-shadow: 0 6px 20px rgba(255,215,120,0.2);
+}
+
+div[role="radiogroup"] label:has(input:checked) {
+    background: rgba(255,215,120,0.22) !important;
+    border: 1px solid rgba(255,215,120,0.5);
+    box-shadow: 0 0 18px rgba(255,215,120,0.25);
+}
+
+.stButton > button {
+    transition: all 0.3s ease;
+}
+
+.stButton > button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 20px rgba(255,215,120,0.5);
+}
+
+[data-testid="stAlert"] {
+    background: rgba(120,180,150,0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+            
+/* Sidebar text */
+
+[data-testid="stSidebar"] * {{
+    color: #f5e6c8 !important;
+}}
+@keyframes twinkle {
+    0% { opacity: 0.3; }
+    50% { opacity: 1; }
+    100% { opacity: 0.3; }
+}
+
+.sparkle {
+    position: fixed;
+    color: rgba(255,255,255,0.4);
+    animation: twinkle 3s infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<div class="sparkle" style="top:12%; left:18%;">✨</div>
+<div class="sparkle" style="top:22%; left:35%;">⭐</div>
+<div class="sparkle" style="top:15%; left:62%;">✨</div>
+<div class="sparkle" style="top:28%; left:82%;">⭐</div>
+
+<div class="sparkle" style="top:45%; left:12%;">🌙</div>
+<div class="sparkle" style="top:52%; left:30%;">✨</div>
+<div class="sparkle" style="top:60%; left:72%;">⭐</div>
+
+<div class="sparkle" style="top:78%; left:18%;">✨</div>
+<div class="sparkle" style="top:82%; left:50%;">🌙</div>
+<div class="sparkle" style="top:75%; left:88%;">⭐</div>
+""", unsafe_allow_html=True)
+
 # ----------------------------------
 # THEME TOGGLE
 # ----------------------------------
@@ -459,10 +764,14 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.markdown(
-    "<center>✨ 🌸 📖 💜 🌼 📚 🌸 ✨</center>",
-    unsafe_allow_html=True
-)
+st.markdown("""
+<div style='text-align:center;
+font-size:22px;
+letter-spacing:8px;
+opacity:0.9;'>
+☕ books • blankets • rainy days • magic ✨
+</div>
+""", unsafe_allow_html=True)
 
 st.caption(
 "🌸 Find your next favorite book in the cutest way possible 💜"
@@ -485,7 +794,7 @@ st.write(
 # SEARCH BOOKS
 # ----------------------------------
 
-st.markdown("### 🔍 Search Books")
+st.markdown("### 🔍 Find Your Next Favourite Book")
 
 search = st.text_input(
     "Search by title"
@@ -544,13 +853,15 @@ elif mood == "🥺 Emotional":
 st.markdown("### ☕ What's your reading companion?")
 
 drink = st.selectbox(
-    "",
+    "Choose your drink",
     [
         "☕ Coffee",
-        "🫖 Tea",
+        "🍵 Tea",
         "🍫 Hot Chocolate",
         "🥤 Iced Drink"
-    ]
+    ],
+    key="drink_select",
+    label_visibility="collapsed"
 )
 # ----------------------------------
 # READING CHALLENGE
@@ -617,7 +928,7 @@ if st.button("✨ Find My Books"):
 
     st.session_state.recommendations = random.sample(
         book_database[category][vibe],
-        min(3, len(book_database[category][vibe]))
+        min(4, len(book_database[category][vibe]))
     )
 
 # ----------------------------------
@@ -636,31 +947,38 @@ if st.button("✨ Find My Books"):
 
             st.markdown("---")
 
+            st.markdown('<div class="book-card">', unsafe_allow_html=True)
             col1, col2 = st.columns([1, 3])
 
             with col1:
                 if book in book_covers:
-                    st.image(book_covers[book], width=140)
+                    st.image(book_covers[book], width=170)
                 
             with col2:
-
                 st.markdown(
-                    f"### 📚 {book}"
-                )
-
+                  f"<h3>📚 {book}</h3>",
+                   unsafe_allow_html=True
+    )
+                
                 if book in book_descriptions:
-                    st.caption(book_descriptions[book])
+                 st.caption(book_descriptions[book])
+
+                if book in book_explanations:
+                 st.info(
+                   f"✨ Why this book matches you\n\n{book_explanations[book]}"
+        )
+
 
                 if st.button(
-                    "❤️ Add to Favorites",
+                     "❤️ Add to Favorites",
                     key=f"fav_{book}"
-                ):
-                    if book not in st.session_state.favorites:
-                        st.session_state.favorites.append(book)
-
-                    st.rerun()
-
-    st.balloons()
+                    ):
+                        if book not in st.session_state.favorites:
+                            st.session_state.favorites.append(book)
+                            st.toast("📚 Added to Favorites!", icon="💖")
+                        st.rerun()
+                        
+    st.markdown("</div>", unsafe_allow_html=True)
 
 # ----------------------------------
 # FOOTER
